@@ -13,12 +13,18 @@ Note: Blocks a a feature introducted in (and only compatible starting) iOS 4.x a
 Example:
 
 	[UIAlertViewEx showAlertWithTitle:@"Alert Demo"
-							  message:@"Welcome to this sample"
-						 cancelButton:nil
-							 okButton:@"Thanks!"
+							  message:@"You like this sample?"
+						 cancelButton:@"No"
+							 okButton:@"Yes"
 					   onButtonTapped:^(UIAlertViewEx* alert, NSInteger buttonIndex)
 	 {
 		 NSLog(@"button tapped: %d",buttonIndex);
+
+		if (buttonIndex == alert.cancelButtonIndex) {
+			NSLog(@"No");
+		} else {
+			NSLog(@"Yes");
+		}
 	 }];
 
 ----------
