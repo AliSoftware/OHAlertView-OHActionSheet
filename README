@@ -1,0 +1,31 @@
+These two classes make it easier to use UIAlertView and UIActionSheet classes by using blocks.
+
+This allows you to provide directly the code to execute (as a block) in return to the tap on a button,
+instead of declaring a delegate and implementing the corresponding methods.
+
+This also has the huge advantage of simplifying the code especially when using multiple UIAlertViews and UIActionSheets
+in the same object (as in such case, it is not easy to have a clean code if you share the same delegate)
+
+
+Note: Blocks a a feature introducted in (and only compatible starting) iOS 4.x and MacOSX 10.6
+
+----------
+Example:
+
+	[UIAlertViewEx showAlertWithTitle:@"Alert Demo"
+							  message:@"Welcome to this sample"
+						 cancelButton:nil
+							 okButton:@"Thanks!"
+					   onButtonTapped:^(UIAlertViewEx* alert, NSInteger buttonIndex)
+	 {
+		 NSLog(@"button tapped: %d",buttonIndex);
+	 }];
+
+----------
+
+NOTE FOR PRE-OSX 10.6 and PRE-iOS 4.0
+	This class is designed to be used with blocks, which are a new feature introduced in OSX 10.6 and iOS 4.0. 
+	
+	To assure the compatibility with pre-iOS4 and pre-OSX10.6, UIAlertViewEx also propose the possibility
+	to associate a userInfo dictionary to the UIAlertView, and specify a @selector to call on a given delegate,
+	so that you can at least specify a different delegate method in case you have multiple UIAlertViews using the same delegate.
