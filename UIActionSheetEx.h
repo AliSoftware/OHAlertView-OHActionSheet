@@ -36,6 +36,6 @@ destructiveButtonTitle:(NSString *)destructiveButtonTitle
 @end
 
 #else
-#warning UIActionSheetEx uses blocks that are supported only since iOS 4.0 and MacOSX 10.6
+#warning UIActionSheetEx uses blocks that are supported only since iOS 4.0
 @interface UIActionSheetEx : UIActionSheet @end
 #endif
