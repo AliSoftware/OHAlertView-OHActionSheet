@@ -7,7 +7,7 @@ This also has the huge advantage of simplifying the code especially when using m
 in the same object (as in such case, it is not easy to have a clean code if you share the same delegate)
 
 
-Note: Blocks a a feature introducted in (and only compatible starting) iOS 4.x and MacOSX 10.6
+Note: Blocks a a feature introducted in (and only compatible starting) iOS 4.x
 
 ----------
 Example:
@@ -29,9 +29,9 @@ Example:
 
 ----------
 
-NOTE FOR PRE-OSX 10.6 and PRE-iOS 4.0
-	This class is designed to be used with blocks, which are a new feature introduced in OSX 10.6 and iOS 4.0. 
+NOTE FOR PRE-iOS 4.0
+	This class is designed to be used with blocks, which are a new feature introduced in iOS 4.0. 
 	
-	To assure the compatibility with pre-iOS4 and pre-OSX10.6, UIAlertViewEx also propose the possibility
+	To assure the compatibility with pre-iOS4, UIAlertViewEx also propose the possibility
 	to associate a userInfo dictionary to the UIAlertView, and specify a @selector to call on a given delegate,
 	so that you can at least specify a different delegate method in case you have multiple UIAlertViews using the same delegate.
