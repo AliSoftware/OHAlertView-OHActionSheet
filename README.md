@@ -7,7 +7,7 @@ instead of declaring a delegate and implementing the corresponding methods.
 
 This also has the huge advantage of **simplifying the code especially when using multiple `UIAlertViews` and `UIActionSheets`** in the same object (as in such case, it is not easy to have a clean code if you share the same delegate)
 
-_Note: Blocks a a feature introducted in (and only compatible starting) iOS 4.x_
+_Note: Blocks are a feature introducted in (and only compatible starting) iOS 4.x_
 
 ## Example
 

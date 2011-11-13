@@ -1,5 +1,5 @@
 //
-//  UIAlertViewEx.m
+//  OHAlertView.m
 //  FoodReporter
 //
 //  Created by Olivier on 30/12/10.
@@ -85,7 +85,7 @@
 	if (!_finalDelegate || !_finalSelector) return;
 	
 	NSMethodSignature* ms = [[_finalDelegate class] instanceMethodSignatureForSelector:_finalSelector];
-	NSAssert(ms,@"Invalid selector for UIAlertViewEx!");
+	NSAssert(ms,@"Invalid selector for OHAlertView!");
 	
 	NSInvocation* inv = [NSInvocation invocationWithMethodSignature:ms];
 	[inv setTarget:_finalDelegate];

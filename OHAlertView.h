@@ -1,5 +1,5 @@
 //
-//  UIAlertViewEx.h
+//  OHAlertView.h
 //  FoodReporter
 //
 //  Created by Olivier on 30/12/10.
