@@ -10,10 +10,10 @@
 
 #if NS_BLOCKS_AVAILABLE
 
-@class UIActionSheetEx;
-@interface UIActionSheetEx : UIActionSheet<UIActionSheetDelegate> {
+@class OHActionSheet;
+@interface OHActionSheet : UIActionSheet<UIActionSheetDelegate> {
 @private
-	void (^_completionBlock)(UIActionSheetEx*,NSInteger);
+	void (^_completionBlock)(OHActionSheet*,NSInteger);
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -23,13 +23,13 @@
 	 cancelButtonTitle:(NSString *)cancelButtonTitle
 destructiveButtonTitle:(NSString *)destructiveButtonTitle
 	 otherButtonTitles:(NSArray *)otherButtonTitles
-			completion:(void (^)(UIActionSheetEx* sheet,NSInteger buttonIndex))completionBlock;
+			completion:(void (^)(OHActionSheet* sheet,NSInteger buttonIndex))completionBlock;
 
 - (id)initWithTitle:(NSString*)title
   cancelButtonTitle:(NSString *)cancelButtonTitle
 destructiveButtonTitle:(NSString *)destructiveButtonTitle
   otherButtonTitles:(NSArray *)otherButtonTitles
-		 completion:(void (^)(UIActionSheetEx* sheet,NSInteger buttonIndex))completionBlock;
+		 completion:(void (^)(OHActionSheet* sheet,NSInteger buttonIndex))completionBlock;
 
 /////////////////////////////////////////////////////////////////////////////
 

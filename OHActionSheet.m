@@ -6,20 +6,20 @@
 //  Copyright 2011 FoodReporter. All rights reserved.
 //
 
-#import "UIActionSheetEx.h"
+#import "OHActionSheet.h"
 
 #if NS_BLOCKS_AVAILABLE
 
-@implementation UIActionSheetEx
+@implementation OHActionSheet
 
 +(void)showSheetInView:(UIView*)view
 				 title:(NSString*)title
 	 cancelButtonTitle:(NSString *)cancelButtonTitle
 destructiveButtonTitle:(NSString *)destructiveButtonTitle
 	 otherButtonTitles:(NSArray *)otherButtonTitles
-			completion:(void (^)(UIActionSheetEx* sheet,NSInteger buttonIndex))completionBlock
+			completion:(void (^)(OHActionSheet* sheet,NSInteger buttonIndex))completionBlock
 {
-	UIActionSheetEx* sheet = [[self alloc] initWithTitle:title
+	OHActionSheet* sheet = [[self alloc] initWithTitle:title
 									   cancelButtonTitle:cancelButtonTitle
 								  destructiveButtonTitle:destructiveButtonTitle
 									   otherButtonTitles:otherButtonTitles
@@ -38,7 +38,7 @@ destructiveButtonTitle:(NSString *)destructiveButtonTitle
   cancelButtonTitle:(NSString *)cancelButtonTitle
 destructiveButtonTitle:(NSString *)destructiveButtonTitle
   otherButtonTitles:(NSArray *)otherButtonTitles
-		 completion:(void (^)(UIActionSheetEx* sheet,NSInteger buttonIndex))completionBlock;
+		 completion:(void (^)(OHActionSheet* sheet,NSInteger buttonIndex))completionBlock;
 {
 	// Note: need to send at least the first button because if the otherButtonTitles parameter is nil, self.firstOtherButtonIndex will be -1
 	NSString* firstOther = (otherButtonTitles && ([otherButtonTitles count]>0)) ? [otherButtonTitles objectAtIndex:0] : nil;

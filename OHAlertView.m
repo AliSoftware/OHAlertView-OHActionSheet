@@ -6,19 +6,19 @@
 //  Copyright 2010 FoodReporter. All rights reserved.
 //
 
-#import "UIAlertViewEx.h"
+#import "OHAlertView.h"
 
-@implementation UIAlertViewEx
-@synthesize userInfo = _userInfo;
+@implementation OHAlertView
+@synthesize userInfo;
 
 #if NS_BLOCKS_AVAILABLE
 
 +(void)showAlertWithTitle:(NSString *)title message:(NSString *)message
 			 cancelButton:(NSString *)cancelButtonTitle
 			 otherButtons:(NSArray *)otherButtonTitles
-		   onButtonTapped:(void(^)(UIAlertViewEx* alert, NSInteger buttonIndex))completion
+		   onButtonTapped:(void(^)(OHAlertView* alert, NSInteger buttonIndex))completion
 {
-	UIAlertViewEx* alert = [[self alloc] initWithTitle:title message:message
+	OHAlertView* alert = [[self alloc] initWithTitle:title message:message
 										  cancelButton:cancelButtonTitle
 										  otherButtons:otherButtonTitles
 										onButtonTapped:completion];
@@ -29,7 +29,7 @@
 +(void)showAlertWithTitle:(NSString *)title message:(NSString *)message
 			 cancelButton:(NSString *)cancelButtonTitle
 				 okButton:(NSString *)okButton // same as using a 1-item array for otherButtons
-		   onButtonTapped:(void(^)(UIAlertViewEx* alert, NSInteger buttonIndex))completion
+		   onButtonTapped:(void(^)(OHAlertView* alert, NSInteger buttonIndex))completion
 {
 	[self showAlertWithTitle:title message:message
 				cancelButton:cancelButtonTitle
@@ -40,7 +40,7 @@
 -(id)initWithTitle:(NSString *)title message:(NSString *)message
 	  cancelButton:(NSString *)cancelButtonTitle
 	  otherButtons:(NSArray *)otherButtonTitles
-	onButtonTapped:(void(^)(UIAlertViewEx* alert, NSInteger buttonIndex))completion
+	onButtonTapped:(void(^)(OHAlertView* alert, NSInteger buttonIndex))completion
 {
 	// Note: need to send at least the first button because if the otherButtonTitles parameter is nil, self.firstOtherButtonIndex will be -1
 	NSString* firstOther = (otherButtonTitles && ([otherButtonTitles count]>0)) ? [otherButtonTitles objectAtIndex:0] : nil;
@@ -68,7 +68,7 @@
 
 -(void)dealloc {
 	[_completionBlock release];
-	[_userInfo release];
+	self.userInfo = nil;
 	[super dealloc];
 }
 

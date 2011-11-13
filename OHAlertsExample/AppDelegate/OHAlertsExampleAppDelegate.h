@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AlertsExExampleAppDelegate : NSObject <UIApplicationDelegate> {
+@interface OHAlertsExampleAppDelegate : NSObject <UIApplicationDelegate> {
     UIWindow *window;
 	IBOutlet UILabel* status;
 }

@@ -6,21 +6,21 @@
 //  Copyright 2011 AliSoftware. All rights reserved.
 //
 
-#import "AlertsExExampleAppDelegate.h"
-#import "UIAlertViewEx.h"
-#import "UIActionSheetEx.h"
+#import "OHAlertsExampleAppDelegate.h"
+#import "OHAlertView.h"
+#import "OHActionSheet.h"
 
 
-@implementation AlertsExExampleAppDelegate
+@implementation OHAlertsExampleAppDelegate
 @synthesize window;
 
 
 -(IBAction)showAlert1 {
-	[UIAlertViewEx showAlertWithTitle:@"Alert Demo"
+	[OHAlertView showAlertWithTitle:@"Alert Demo"
 							  message:@"Welcome to this sample"
 						 cancelButton:nil
 							 okButton:@"Thanks!"
-					   onButtonTapped:^(UIAlertViewEx* alert, NSInteger buttonIndex)
+					   onButtonTapped:^(OHAlertView* alert, NSInteger buttonIndex)
 	 {
 		 status.text = @"Welcome !";
 	 }];
@@ -30,11 +30,11 @@
 
 
 -(IBAction)showAlert2 {
-	[UIAlertViewEx showAlertWithTitle:@"Your order"
+	[OHAlertView showAlertWithTitle:@"Your order"
 							  message:@"Want some ice cream?"
 						 cancelButton:@"No thanks"
 							 okButton:@"Yes please!"
-					   onButtonTapped:^(UIAlertViewEx *alert, NSInteger buttonIndex)
+					   onButtonTapped:^(OHAlertView *alert, NSInteger buttonIndex)
 	 {
 		 NSLog(@"button tapped: %d",buttonIndex);
 		 
@@ -43,11 +43,11 @@
 		 } else {
 			 
 			 NSArray* flavors = [NSArray arrayWithObjects:@"chocolate",@"vanilla",@"strawberry",@"coffee",nil];
-			 [UIAlertViewEx showAlertWithTitle:@"Flavor"
+			 [OHAlertView showAlertWithTitle:@"Flavor"
 									   message:@"Which flavor do you prefer?"
 								  cancelButton:@"Cancel"
 								  otherButtons:flavors
-								onButtonTapped:^(UIAlertViewEx *alert, NSInteger buttonIndex)
+								onButtonTapped:^(OHAlertView *alert, NSInteger buttonIndex)
 			  {
 				  NSLog(@"button tapped: %d",buttonIndex);
 				  if (buttonIndex == alert.cancelButtonIndex) {
@@ -72,12 +72,12 @@
 -(IBAction)showSheet1 {
 	NSArray* flavours = [NSArray arrayWithObjects:@"chocolate",@"vanilla",@"strawberry",nil];
 	
-	[UIActionSheetEx showSheetInView:self.window
+	[OHActionSheet showSheetInView:self.window
 							   title:@"Ice cream?"
 				   cancelButtonTitle:@"Maybe later"
 			  destructiveButtonTitle:@"No thanks!"
 				   otherButtonTitles:flavours
-						  completion:^(UIActionSheetEx *sheet, NSInteger buttonIndex)
+						  completion:^(OHActionSheet *sheet, NSInteger buttonIndex)
 	 {
 		 NSLog(@"button tapped: %d",buttonIndex);
 		 if (buttonIndex == sheet.cancelButtonIndex) {
