@@ -33,7 +33,7 @@
 {
 	[self showAlertWithTitle:title message:message
 				cancelButton:cancelButtonTitle
-				otherButtons:[NSArray arrayWithObject:okButton]
+				otherButtons:okButton ? [NSArray arrayWithObject:okButton] : nil
 			  onButtonTapped:completion];
 }
 
