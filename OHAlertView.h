@@ -8,41 +8,38 @@
 
 #import <Foundation/Foundation.h>
 
-@class OHAlertView;
-@interface OHAlertView : UIAlertView<UIAlertViewDelegate> {
-@private
-#if NS_BLOCKS_AVAILABLE
-	void (^_completionBlock)(OHAlertView*,NSInteger);
-#endif
-	id<UIAlertViewDelegate> _finalDelegate;
-	SEL _finalSelector;
-}
+@interface OHAlertView : UIAlertView
+
+typedef void(^OHAlertViewButtonHandler)(OHAlertView* alert, NSInteger buttonIndex);
+@property (nonatomic, copy) OHAlertViewButtonHandler buttonHandler;
 
 /////////////////////////////////////////////////////////////////////////////
 
-#if NS_BLOCKS_AVAILABLE
 +(void)showAlertWithTitle:(NSString *)title message:(NSString *)message
 			 cancelButton:(NSString *)cancelButtonTitle
 			 otherButtons:(NSArray *)otherButtonTitles
-		   onButtonTapped:(void(^)(OHAlertView* alert, NSInteger buttonIndex))completion;
+		   onButtonTapped:(OHAlertViewButtonHandler)handler;
 
 
 // Commodity method
 +(void)showAlertWithTitle:(NSString *)title message:(NSString *)message
 			 cancelButton:(NSString *)cancelButtonTitle
 				 okButton:(NSString *)okButton // same as using a 1-item array for otherButtons
-		   onButtonTapped:(void(^)(OHAlertView* alert, NSInteger buttonIndex))completion;
+		   onButtonTapped:(OHAlertViewButtonHandler)handler;
 
 
 -(id)initWithTitle:(NSString *)title message:(NSString *)message
 	  cancelButton:(NSString *)cancelButtonTitle
 	  otherButtons:(NSArray *)otherButtonTitles
-	onButtonTapped:(void(^)(OHAlertView* alert, NSInteger buttonIndex))completion;
-#endif
-
--(void)setDelegate:(id)aDelegate didDismissSelector:(SEL)aSelector;
-@property(nonatomic, retain) NSDictionary* userInfo;
+	onButtonTapped:(OHAlertViewButtonHandler)handler;
 
 /////////////////////////////////////////////////////////////////////////////
+
+-(void)showWithTimeout:(unsigned long)timeoutInSeconds
+    timeoutButtonIndex:(NSInteger)timeoutButtonIndex;
+
+-(void)showWithTimeout:(unsigned long)timeoutInSeconds
+    timeoutButtonIndex:(NSInteger)timeoutButtonIndex
+  timeoutMessageFormat:(NSString*)countDownMessageFormat; // use "%lu" for the countdown value placeholder
 
 @end

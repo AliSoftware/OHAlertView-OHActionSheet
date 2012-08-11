@@ -12,24 +12,27 @@
 
 
 @implementation OHAlertsExampleAppDelegate
-@synthesize window;
+@synthesize window = _window;
+@synthesize status = _status;
 
 
--(IBAction)showAlert1 {
+-(IBAction)showAlert1
+{
 	[OHAlertView showAlertWithTitle:@"Alert Demo"
 							  message:@"Welcome to this sample"
 						 cancelButton:nil
 							 okButton:@"Thanks!"
 					   onButtonTapped:^(OHAlertView* alert, NSInteger buttonIndex)
 	 {
-		 status.text = @"Welcome !";
+		 self.status.text = @"Welcome !";
 	 }];
 }
 
 /////////////////////////////////////////////////////////////////////////////
 
 
--(IBAction)showAlert2 {
+-(IBAction)showAlert2
+{
 	[OHAlertView showAlertWithTitle:@"Your order"
 							  message:@"Want some ice cream?"
 						 cancelButton:@"No thanks"
@@ -39,7 +42,7 @@
 		 NSLog(@"button tapped: %d",buttonIndex);
 		 
 		 if (buttonIndex == alert.cancelButtonIndex) {
-			 status.text = @"Your order has been cancelled";
+			 self.status.text = @"Your order has been cancelled";
 		 } else {
 			 
 			 NSArray* flavors = [NSArray arrayWithObjects:@"chocolate",@"vanilla",@"strawberry",@"coffee",nil];
@@ -51,11 +54,11 @@
 			  {
 				  NSLog(@"button tapped: %d",buttonIndex);
 				  if (buttonIndex == alert.cancelButtonIndex) {
-					  status.text = @"Your order has been cancelled";
+					  self.status.text = @"Your order has been cancelled";
 				  } else {
 					  
 					  NSString* flavor = [flavors objectAtIndex:(buttonIndex-alert.firstOtherButtonIndex)];
-					  status.text = [NSString stringWithFormat:@"You ordered a %@ ice cream.",flavor];
+					  self.status.text = [NSString stringWithFormat:@"You ordered a %@ ice cream.",flavor];
 					  
 				  }
 			  }];
@@ -65,11 +68,36 @@
 	 }];
 }
 
+-(IBAction)showAlert3
+{
+    OHAlertView* alert =
+	[[OHAlertView alloc] initWithTitle:@"Alert Demo"
+                               message:@"This is a demo message"
+                          cancelButton:nil
+                          otherButtons:[NSArray arrayWithObject:@"OK"]
+                        onButtonTapped:^(OHAlertView* alert, NSInteger buttonIndex)
+	 {
+         if (buttonIndex == -1)
+         {
+             self.status.text = @"Demo alert dismissed automatically after timeout!";
+         }
+         else
+         {
+             self.status.text = @"Demo alert dismissed by user!";
+         }
+	 }];
+    [alert showWithTimeout:12 timeoutButtonIndex:-1];
+    
+    [alert release];
+
+}
+
 
 /////////////////////////////////////////////////////////////////////////////
 
 
--(IBAction)showSheet1 {
+-(IBAction)showSheet1
+{
 	NSArray* flavours = [NSArray arrayWithObjects:@"chocolate",@"vanilla",@"strawberry",nil];
 	
 	[OHActionSheet showSheetInView:self.window
@@ -81,12 +109,12 @@
 	 {
 		 NSLog(@"button tapped: %d",buttonIndex);
 		 if (buttonIndex == sheet.cancelButtonIndex) {
-			 status.text = @"Your order has been postponed";
+			 self.status.text = @"Your order has been postponed";
 		 } else if (buttonIndex == sheet.destructiveButtonIndex) {
-			 status.text = @"Your order has been cancelled";
+			 self.status.text = @"Your order has been cancelled";
 		 } else {
 			 NSString* flavour = [flavours objectAtIndex:(buttonIndex-sheet.firstOtherButtonIndex)];
-			 status.text = [NSString stringWithFormat:@"You ordered a %@ ice cream.",flavour];
+			 self.status.text = [NSString stringWithFormat:@"You ordered a %@ ice cream.",flavour];
 		 }
 	 }];
 }
@@ -104,7 +132,8 @@
 }
 
 - (void)dealloc {
-    [window release];
+    [_window release];
+    [_status release];
     [super dealloc];
 }
 

@@ -8,20 +8,25 @@
 
 #import "OHAlertView.h"
 
-@implementation OHAlertView
-@synthesize userInfo;
+@interface OHAlertView () <UIAlertViewDelegate> @end
 
-#if NS_BLOCKS_AVAILABLE
+
+
+@implementation OHAlertView
+@synthesize buttonHandler = _buttonHandler;
+
+/////////////////////////////////////////////////////////////////////////////
+#pragma mark - Constructors
 
 +(void)showAlertWithTitle:(NSString *)title message:(NSString *)message
 			 cancelButton:(NSString *)cancelButtonTitle
 			 otherButtons:(NSArray *)otherButtonTitles
-		   onButtonTapped:(void(^)(OHAlertView* alert, NSInteger buttonIndex))completion
+		   onButtonTapped:(OHAlertViewButtonHandler)handler
 {
 	OHAlertView* alert = [[self alloc] initWithTitle:title message:message
 										  cancelButton:cancelButtonTitle
 										  otherButtons:otherButtonTitles
-										onButtonTapped:completion];
+										onButtonTapped:handler];
 	[alert show];
 	[alert autorelease];
 }
@@ -29,18 +34,19 @@
 +(void)showAlertWithTitle:(NSString *)title message:(NSString *)message
 			 cancelButton:(NSString *)cancelButtonTitle
 				 okButton:(NSString *)okButton // same as using a 1-item array for otherButtons
-		   onButtonTapped:(void(^)(OHAlertView* alert, NSInteger buttonIndex))completion
+		   onButtonTapped:(void(^)(OHAlertView* alert, NSInteger buttonIndex))handler
 {
 	[self showAlertWithTitle:title message:message
 				cancelButton:cancelButtonTitle
 				otherButtons:okButton ? [NSArray arrayWithObject:okButton] : nil
-			  onButtonTapped:completion];
+			  onButtonTapped:handler];
 }
+
 
 -(id)initWithTitle:(NSString *)title message:(NSString *)message
 	  cancelButton:(NSString *)cancelButtonTitle
 	  otherButtons:(NSArray *)otherButtonTitles
-	onButtonTapped:(void(^)(OHAlertView* alert, NSInteger buttonIndex))completion
+	onButtonTapped:(void(^)(OHAlertView* alert, NSInteger buttonIndex))handler
 {
 	// Note: need to send at least the first button because if the otherButtonTitles parameter is nil, self.firstOtherButtonIndex will be -1
 	NSString* firstOther = (otherButtonTitles && ([otherButtonTitles count]>0)) ? [otherButtonTitles objectAtIndex:0] : nil;
@@ -48,50 +54,88 @@
 					   delegate:self
 			  cancelButtonTitle:cancelButtonTitle
 			  otherButtonTitles:firstOther,nil];
-	if (self) {
+    
+	if (self)
+    {
 		for(NSInteger idx = 1; idx<[otherButtonTitles count];++idx) {
 			[self addButtonWithTitle: [otherButtonTitles objectAtIndex:idx] ];
 		}
-		_completionBlock = [completion copy];
+		self.buttonHandler = [handler copy];
 	}
 	return self;
 }
 
-#endif
+/////////////////////////////////////////////////////////////////////////////
+#pragma mark - Public Methods
 
--(void)setDelegate:(id)aDelegate didDismissSelector:(SEL)aSelector {
-	_finalDelegate = aDelegate;
-	_finalSelector = aSelector;
-	self.delegate = self;
+-(void)showWithTimeout:(unsigned long)timeoutInSeconds
+    timeoutButtonIndex:(NSInteger)timeoutButtonIndex
+{
+    [self showWithTimeout:timeoutInSeconds
+       timeoutButtonIndex:timeoutButtonIndex
+     timeoutMessageFormat:@"(Alert dismissed in %lus)"];
 }
 
+-(void)showWithTimeout:(unsigned long)timeoutInSeconds
+    timeoutButtonIndex:(NSInteger)timeoutButtonIndex
+  timeoutMessageFormat:(NSString*)countDownMessageFormat
+{
+    __block dispatch_source_t timer = nil;
+    __block unsigned long countDown = timeoutInSeconds;
+    
+    // Add some timer sugar to the completion handler
+    OHAlertViewButtonHandler finalHandler = [[self.buttonHandler copy] autorelease];
+    self.buttonHandler = ^(OHAlertView* bhAlert, NSInteger bhButtonIndex)
+    {
+        // Cancel and release timer
+        dispatch_source_cancel(timer);
+        dispatch_release(timer);
+        timer = nil;
+        
+        // Execute final handler
+        finalHandler(bhAlert, bhButtonIndex);
+    };
+    
+    NSString* baseMessage = self.message;
+    dispatch_block_t updateMessage = countDownMessageFormat ? ^{
+        self.message = [NSString stringWithFormat:@"%@\n\n%@", baseMessage, [NSString stringWithFormat:countDownMessageFormat, countDown]];
+    } : ^{ /* NOOP */ };
+    updateMessage();
+    
+    // Schedule timer every second to update message. When timer reach zero, dismiss the alert
+    timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, dispatch_get_current_queue());
+    dispatch_source_set_timer(timer, dispatch_time(DISPATCH_TIME_NOW, 1*NSEC_PER_SEC), 1*NSEC_PER_SEC, 0.1*NSEC_PER_SEC);
+    dispatch_source_set_event_handler(timer, ^{
+        --countDown;
+        updateMessage();
+        if (countDown <= 0)
+        {
+            [self dismissWithClickedButtonIndex:timeoutButtonIndex animated:YES];
+        }
+    });
+    
+    // Show the alert and start the timer now
+    [self show];
+    dispatch_resume(timer);
+}
+
+/////////////////////////////////////////////////////////////////////////////
+#pragma mark - Memory Mgmt
 
 -(void)dealloc {
-	[_completionBlock release];
-	self.userInfo = nil;
+	[_buttonHandler release];
 	[super dealloc];
 }
 
+/////////////////////////////////////////////////////////////////////////////
+#pragma mark - UIAlertView Delegate Methods
+
 -(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
-#if NS_BLOCKS_AVAILABLE
-	if (_completionBlock) {
-		_completionBlock(self,buttonIndex);
-		return;
+	if (self.buttonHandler)
+    {
+		self.buttonHandler(self,buttonIndex);
 	}
-#endif
-	
-	// If you dont use blocks but delegate+customSelector
-	if (!_finalDelegate || !_finalSelector) return;
-	
-	NSMethodSignature* ms = [[_finalDelegate class] instanceMethodSignatureForSelector:_finalSelector];
-	NSAssert(ms,@"Invalid selector for OHAlertView!");
-	
-	NSInvocation* inv = [NSInvocation invocationWithMethodSignature:ms];
-	[inv setTarget:_finalDelegate];
-	[inv setSelector:_finalSelector];
-	[inv setArgument:&alertView atIndex:2];
-	[inv setArgument:&buttonIndex atIndex:3];
-	[inv invoke];
 }
+
 @end

@@ -8,14 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@interface OHAlertsExampleAppDelegate : NSObject <UIApplicationDelegate> {
-    UIWindow *window;
-	IBOutlet UILabel* status;
-}
+@interface OHAlertsExampleAppDelegate : NSObject <UIApplicationDelegate>
+
 @property (nonatomic, retain) IBOutlet UIWindow *window;
+@property (nonatomic, retain) IBOutlet UILabel *status;
 
 -(IBAction)showAlert1;
 -(IBAction)showAlert2;
+-(IBAction)showAlert3;
 -(IBAction)showSheet1;
 
 @end
