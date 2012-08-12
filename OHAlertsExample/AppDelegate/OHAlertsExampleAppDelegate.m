@@ -87,9 +87,9 @@
          }
 	 }];
     [alert showWithTimeout:12 timeoutButtonIndex:-1];
-    
+#if ! __has_feature(objc_arc)
     [alert release];
-
+#endif
 }
 
 
@@ -131,11 +131,12 @@
     return YES;
 }
 
+#if ! __has_feature(objc_arc)
 - (void)dealloc {
     [_window release];
     [_status release];
     [super dealloc];
 }
-
+#endif
 
 @end

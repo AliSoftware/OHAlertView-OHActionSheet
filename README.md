@@ -26,8 +26,7 @@ _Note: Blocks are a feature introducted in (and only compatible starting) iOS 4.
          }
      }];
 
-## Note for iOS versions prior 4.0
+## Compatibility Notes
 
-This class is designed to be used with blocks, which are a new feature introduced in iOS 4.0. 
-	
-To assure the compatibility with pre-iOS4, `OHAlertView` also propose the possibility to associate a `userInfo` dictionary to the AlertView, and specify a `@selector` to call on a given `delegate`, so that you can at least specify a different delegate method in case you have multiple `OHAlertViews` using the same delegate.
+This classes uses blocks, which are a feature introduced in iOS 4.0.
+This classes are compatible with both ARC and non-ARC projects.

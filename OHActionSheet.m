@@ -31,7 +31,9 @@ destructiveButtonTitle:(NSString *)destructiveButtonTitle
 	} else {
 		[sheet showInView:view];
 	}
+#if ! __has_feature(objc_arc)
 	[sheet autorelease];
+#endif
 }
 
 - (id)initWithTitle:(NSString*)title
@@ -65,11 +67,12 @@ destructiveButtonTitle:(NSString *)destructiveButtonTitle
 	}
 }
 
+#if ! __has_feature(objc_arc)
 - (void)dealloc {
 	[_completionBlock release];
     [super dealloc];
 }
-
+#endif
 
 @end
 

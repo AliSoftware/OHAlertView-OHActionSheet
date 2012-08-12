@@ -28,7 +28,9 @@
 										  otherButtons:otherButtonTitles
 										onButtonTapped:handler];
 	[alert show];
+#if ! __has_feature(objc_arc)
 	[alert autorelease];
+#endif
 }
 
 +(void)showAlertWithTitle:(NSString *)title message:(NSString *)message
@@ -84,7 +86,7 @@
     __block unsigned long countDown = timeoutInSeconds;
     
     // Add some timer sugar to the completion handler
-    OHAlertViewButtonHandler finalHandler = [[self.buttonHandler copy] autorelease];
+    OHAlertViewButtonHandler finalHandler = [self.buttonHandler copy];
     self.buttonHandler = ^(OHAlertView* bhAlert, NSInteger bhButtonIndex)
     {
         // Cancel and release timer
@@ -95,6 +97,9 @@
         // Execute final handler
         finalHandler(bhAlert, bhButtonIndex);
     };
+#if ! __has_feature(objc_arc)
+    [finalHandler release];
+#endif
     
     NSString* baseMessage = self.message;
     dispatch_block_t updateMessage = countDownMessageFormat ? ^{
@@ -122,10 +127,12 @@
 /////////////////////////////////////////////////////////////////////////////
 #pragma mark - Memory Mgmt
 
+#if ! __has_feature(objc_arc)
 -(void)dealloc {
 	[_buttonHandler release];
 	[super dealloc];
 }
+#endif
 
 /////////////////////////////////////////////////////////////////////////////
 #pragma mark - UIAlertView Delegate Methods
