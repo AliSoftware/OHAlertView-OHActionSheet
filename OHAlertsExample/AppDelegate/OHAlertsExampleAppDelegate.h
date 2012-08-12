@@ -17,6 +17,7 @@
 -(IBAction)showAlert2;
 -(IBAction)showAlert3;
 -(IBAction)showSheet1;
+-(IBAction)showSheet2;
 
 @end
 

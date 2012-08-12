@@ -8,13 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-#if NS_BLOCKS_AVAILABLE
+@interface OHActionSheet : UIActionSheet
 
-@class OHActionSheet;
-@interface OHActionSheet : UIActionSheet<UIActionSheetDelegate> {
-@private
-	void (^_completionBlock)(OHActionSheet*,NSInteger);
-}
+typedef void (^OHActionSheetButtonHandler)(OHActionSheet* sheet,NSInteger buttonIndex);
+@property (nonatomic, copy) OHActionSheetButtonHandler buttonHandler;
 
 /////////////////////////////////////////////////////////////////////////////
 
@@ -23,19 +20,19 @@
 	 cancelButtonTitle:(NSString *)cancelButtonTitle
 destructiveButtonTitle:(NSString *)destructiveButtonTitle
 	 otherButtonTitles:(NSArray *)otherButtonTitles
-			completion:(void (^)(OHActionSheet* sheet,NSInteger buttonIndex))completionBlock;
+			completion:(OHActionSheetButtonHandler)completionBlock;
 
 - (id)initWithTitle:(NSString*)title
   cancelButtonTitle:(NSString *)cancelButtonTitle
 destructiveButtonTitle:(NSString *)destructiveButtonTitle
   otherButtonTitles:(NSArray *)otherButtonTitles
-		 completion:(void (^)(OHActionSheet* sheet,NSInteger buttonIndex))completionBlock;
+		 completion:(OHActionSheetButtonHandler)completionBlock;
 
 /////////////////////////////////////////////////////////////////////////////
 
-@end
+-(void)showInView:(UIView*)view;
+-(void)showInView:(UIView*)view withTimeout:(unsigned long)timeoutInSeconds timeoutButtonIndex:(NSInteger)timeoutButtonIndex;
+-(void)showInView:(UIView*)view withTimeout:(unsigned long)timeoutInSeconds
+timeoutButtonIndex:(NSInteger)timeoutButtonIndex timeoutMessageFormat:(NSString*)countDownMessageFormat;
 
-#else
-#warning UIActionSheetEx uses blocks that are supported only since iOS 4.0
-@interface UIActionSheetEx : UIActionSheet @end
-#endif
+@end

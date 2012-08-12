@@ -125,7 +125,7 @@
 					<object class="IBUILabel" id="16696819">
 						<reference key="NSNextResponder" ref="380026005"/>
 						<int key="NSvFlags">1316</int>
-						<string key="NSFrame">{{20, 286}, {280, 45}}</string>
+						<string key="NSFrame">{{20, 338}, {280, 45}}</string>
 						<reference key="NSSuperview" ref="380026005"/>
 						<reference key="NSWindow"/>
 						<bool key="IBUIOpaque">NO</bool>
@@ -165,6 +165,27 @@
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<int key="IBUIButtonType">1</int>
 						<string key="IBUINormalTitle">Ice cream ActionSheet example</string>
+						<reference key="IBUIHighlightedTitleColor" ref="664359530"/>
+						<object class="NSColor" key="IBUINormalTitleColor">
+							<int key="NSColorSpace">1</int>
+							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
+						</object>
+						<reference key="IBUINormalTitleShadowColor" ref="39965777"/>
+						<reference key="IBUIFontDescription" ref="461545707"/>
+						<reference key="IBUIFont" ref="537519576"/>
+					</object>
+					<object class="IBUIButton" id="804709919">
+						<reference key="NSNextResponder" ref="380026005"/>
+						<int key="NSvFlags">1316</int>
+						<string key="NSFrame">{{20, 243}, {280, 37}}</string>
+						<reference key="NSSuperview" ref="380026005"/>
+						<reference key="NSWindow"/>
+						<bool key="IBUIOpaque">NO</bool>
+						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+						<int key="IBUIContentHorizontalAlignment">0</int>
+						<int key="IBUIContentVerticalAlignment">0</int>
+						<int key="IBUIButtonType">1</int>
+						<string key="IBUINormalTitle">Timed ActionSheet example</string>
 						<reference key="IBUIHighlightedTitleColor" ref="664359530"/>
 						<object class="NSColor" key="IBUINormalTitleColor">
 							<int key="NSColorSpace">1</int>
@@ -253,6 +274,15 @@
 					</object>
 					<int key="connectionID">21</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">showSheet2</string>
+						<reference key="source" ref="804709919"/>
+						<reference key="destination" ref="664661524"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">24</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -273,8 +303,9 @@
 							<reference ref="610197364"/>
 							<reference ref="256716134"/>
 							<reference ref="741548394"/>
-							<reference ref="16696819"/>
 							<reference ref="820637490"/>
+							<reference ref="804709919"/>
+							<reference ref="16696819"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -319,6 +350,11 @@
 						<reference key="object" ref="820637490"/>
 						<reference key="parent" ref="380026005"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">22</int>
+						<reference key="object" ref="804709919"/>
+						<reference key="parent" ref="380026005"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -336,6 +372,7 @@
 					<string>19.IBPluginDependency</string>
 					<string>2.IBAttributePlaceholdersKey</string>
 					<string>2.IBPluginDependency</string>
+					<string>22.IBPluginDependency</string>
 					<string>3.CustomClassName</string>
 					<string>3.IBPluginDependency</string>
 				</object>
@@ -356,6 +393,7 @@
 						<reference key="dict.values" ref="0"/>
 					</object>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>OHAlertsExampleAppDelegate</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				</object>
@@ -372,7 +410,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">21</int>
+			<int key="maxID">24</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -386,10 +424,14 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>showAlert1</string>
 							<string>showAlert2</string>
+							<string>showAlert3</string>
 							<string>showSheet1</string>
+							<string>showSheet2</string>
 						</object>
 						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -401,7 +443,9 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>showAlert1</string>
 							<string>showAlert2</string>
+							<string>showAlert3</string>
 							<string>showSheet1</string>
+							<string>showSheet2</string>
 						</object>
 						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -414,7 +458,15 @@
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
+								<string key="name">showAlert3</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
 								<string key="name">showSheet1</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">showSheet2</string>
 								<string key="candidateClassName">id</string>
 							</object>
 						</object>

@@ -119,6 +119,35 @@
 	 }];
 }
 
+-(IBAction)showSheet2
+{
+	NSArray* flavours = [NSArray arrayWithObjects:@"apple",@"pear",@"banana",nil];
+
+	OHActionSheet* sheet =
+	[[OHActionSheet alloc] initWithTitle:@"What's your favorite fruit?"
+                 cancelButtonTitle:@"Don't care"
+            destructiveButtonTitle:nil
+                 otherButtonTitles:flavours
+                        completion:^(OHActionSheet *sheet, NSInteger buttonIndex)
+	 {
+		 NSLog(@"button tapped: %d",buttonIndex);
+		 if (buttonIndex == sheet.cancelButtonIndex) {
+			 self.status.text = @"You didn't answer the question";
+		 } else if (buttonIndex == -1) {
+			 self.status.text = @"The action sheet timed out";
+		 } else {
+			 NSString* fruit = [flavours objectAtIndex:(buttonIndex-sheet.firstOtherButtonIndex)];
+			 self.status.text = [NSString stringWithFormat:@"Your favorite fruit is %@.",fruit];
+		 }
+	 }];
+    
+    [sheet showInView:self.window withTimeout:8 timeoutButtonIndex:-1];
+#if ! __has_feature(objc_arc)
+    [sheet release];
+#endif
+}
+
+
 
 /////////////////////////////////////////////////////////////////////////////
 // MARK: -
