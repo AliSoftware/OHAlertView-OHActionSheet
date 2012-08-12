@@ -24,9 +24,9 @@
 		   onButtonTapped:(OHAlertViewButtonHandler)handler
 {
 	OHAlertView* alert = [[self alloc] initWithTitle:title message:message
-										  cancelButton:cancelButtonTitle
-										  otherButtons:otherButtonTitles
-										onButtonTapped:handler];
+                                        cancelButton:cancelButtonTitle
+                                        otherButtons:otherButtonTitles
+                                      onButtonTapped:handler];
 	[alert show];
 #if ! __has_feature(objc_arc)
 	[alert autorelease];

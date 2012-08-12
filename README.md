@@ -29,4 +29,5 @@ _Note: Blocks are a feature introducted in (and only compatible starting) iOS 4.
 ## Compatibility Notes
 
 This classes uses blocks, which are a feature introduced in iOS 4.0.
+
 This classes are compatible with both ARC and non-ARC projects.

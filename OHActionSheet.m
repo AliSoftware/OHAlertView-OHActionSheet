@@ -20,10 +20,10 @@ destructiveButtonTitle:(NSString *)destructiveButtonTitle
 			completion:(void (^)(OHActionSheet* sheet,NSInteger buttonIndex))completionBlock
 {
 	OHActionSheet* sheet = [[self alloc] initWithTitle:title
-									   cancelButtonTitle:cancelButtonTitle
-								  destructiveButtonTitle:destructiveButtonTitle
-									   otherButtonTitles:otherButtonTitles
-											  completion:completionBlock];
+                                     cancelButtonTitle:cancelButtonTitle
+                                destructiveButtonTitle:destructiveButtonTitle
+                                     otherButtonTitles:otherButtonTitles
+                                            completion:completionBlock];
 	if ([view isKindOfClass:[UITabBar class]]) {
 		[sheet showFromTabBar:(UITabBar*)view];
 	} else if ([view isKindOfClass:[UIToolbar class]]) {
