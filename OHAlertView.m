@@ -91,7 +91,9 @@
     {
         // Cancel and release timer
         dispatch_source_cancel(timer);
+#if ! __has_feature(objc_arc)
         dispatch_release(timer);
+#endif
         timer = nil;
         
         // Execute final handler
@@ -108,7 +110,7 @@
     updateMessage();
     
     // Schedule timer every second to update message. When timer reach zero, dismiss the alert
-    timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, dispatch_get_current_queue());
+    timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, dispatch_get_main_queue());
     dispatch_source_set_timer(timer, dispatch_time(DISPATCH_TIME_NOW, 1*NSEC_PER_SEC), 1*NSEC_PER_SEC, 0.1*NSEC_PER_SEC);
     dispatch_source_set_event_handler(timer, ^{
         --countDown;
