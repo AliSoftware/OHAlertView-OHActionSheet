@@ -45,6 +45,16 @@
 }
 
 
++(void)showAlertWithTitle:(NSString *)title message:(NSString *)message
+             cancelButton:(NSString *)cancelButtonTitle
+{
+    [self showAlertWithTitle:title message:message
+                cancelButton:cancelButtonTitle
+                otherButtons:nil
+              onButtonTapped:nil];
+}
+
+
 -(id)initWithTitle:(NSString *)title message:(NSString *)message
 	  cancelButton:(NSString *)cancelButtonTitle
 	  otherButtons:(NSArray *)otherButtonTitles

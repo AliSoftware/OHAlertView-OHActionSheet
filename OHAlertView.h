@@ -27,6 +27,8 @@ typedef void(^OHAlertViewButtonHandler)(OHAlertView* alert, NSInteger buttonInde
 				 okButton:(NSString *)okButton // same as using a 1-item array for otherButtons
 		   onButtonTapped:(OHAlertViewButtonHandler)handler;
 
++(void)showAlertWithTitle:(NSString *)title message:(NSString *)message
+			 cancelButton:(NSString *)cancelButtonTitle;
 
 -(id)initWithTitle:(NSString *)title message:(NSString *)message
 	  cancelButton:(NSString *)cancelButtonTitle
