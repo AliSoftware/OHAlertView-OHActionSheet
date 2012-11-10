@@ -45,11 +45,12 @@
 }
 
 
-+(void)showAlertWithTitle:(NSString *)title message:(NSString *)message
-             cancelButton:(NSString *)cancelButtonTitle
++(void)showAlertWithTitle:(NSString *)title
+                  message:(NSString *)message
+            dismissButton:(NSString *)dismissButtonTitle
 {
     [self showAlertWithTitle:title message:message
-                cancelButton:cancelButtonTitle
+                cancelButton:dismissButtonTitle
                 otherButtons:nil
               onButtonTapped:nil];
 }
