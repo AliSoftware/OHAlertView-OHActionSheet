@@ -38,9 +38,20 @@ typedef void(^OHAlertViewButtonHandler)(OHAlertView* alert, NSInteger buttonInde
 
 /////////////////////////////////////////////////////////////////////////////
 
+/**
+ * Show the AlertView that will dismiss after timeoutInSeconds seconds, by simulating a tap on the timeoutButtonIndex button after this delay.
+ *
+ * This method uses the @"(Alert dismissed in %lus)" timeout message format by default.
+ */
 -(void)showWithTimeout:(unsigned long)timeoutInSeconds
     timeoutButtonIndex:(NSInteger)timeoutButtonIndex;
 
+/** 
+ * Show the AlertView that will dismiss after timeoutInSeconds seconds, by simulating a tap on the timeoutButtonIndex button after this delay.
+ *
+ * The countDownMessageFormat is a string containing a %lu placeholder to customize the countdown message displayed in the alert.
+ * If countDownMessageFormat is nil, no countdown message is added to the alert message.
+ */
 -(void)showWithTimeout:(unsigned long)timeoutInSeconds
     timeoutButtonIndex:(NSInteger)timeoutButtonIndex
   timeoutMessageFormat:(NSString*)countDownMessageFormat; // use "%lu" for the countdown value placeholder
