@@ -73,7 +73,7 @@
 		for(NSInteger idx = 1; idx<[otherButtonTitles count];++idx) {
 			[self addButtonWithTitle: [otherButtonTitles objectAtIndex:idx] ];
 		}
-		self.buttonHandler = [handler copy];
+		self.buttonHandler = handler;
 	}
 	return self;
 }
